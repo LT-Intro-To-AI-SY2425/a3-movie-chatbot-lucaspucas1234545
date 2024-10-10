@@ -134,12 +134,15 @@ def director_by_title(matches: List[str]) -> List[str]:
     Returns:
         a list of 1 string, the director of the movie
     """
-    aMovie = matches[0]
+    movie1 = matches[0]
     result = []
-    if(True):
-        result.append(get_director(aMovie))
-   
+    for movie in movie_db:
+        if movie1 == get_title(movie):
+            director = get_director(movie)
+            result.append(director)
     return result
+    
+
     
 
 def title_by_director(matches: List[str]) -> List[str]:
@@ -168,7 +171,13 @@ def actors_by_title(matches: List[str]) -> List[str]:
     Returns:
         a list of actors who acted in the passed in title
     """
-    pass
+    theMovie = matches[0]
+    result = []
+    for movie in movie_db:
+        if theMovie == get_title(movie):
+            for actor in get_actors(movie):
+                result.append(actor)
+    return result
 
 
 def year_by_title(matches: List[str]) -> List[int]:
@@ -180,7 +189,12 @@ def year_by_title(matches: List[str]) -> List[int]:
     Returns:
         a list of one item (an int), the year that the movie was made
     """
-    pass
+    theMovie = matches[0]
+    result = []
+    for movie in movie_db:
+        if theMovie == get_title(movie):
+            result.append(get_year(movie))
+    return result
 
 
 def title_by_actor(matches: List[str]) -> List[str]:
@@ -239,10 +253,11 @@ def search_pa_list(src: List[str]) -> List[str]:
         ["No answers"] if it finds a match but no answers
     """
     for pat, act in pa_list:
-        val - match(pat, src)
+        val = match(pat, src)
         if val != None:
             result = act(val)
-    return result
+            return result
+    return None
 
 def query_loop() -> None:
     """The simple query loop. The try/except structure is to catch Ctrl-C or Ctrl-D
